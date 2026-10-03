@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration Form</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: lightgray;
+        }
+
+        .form {
+            width: 400px;
+            margin: 50px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        #success {
+            color: green;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form">
+    <h2>Student Registration Form</h2>
+
+    <form onsubmit="return register()">
+
+        <input type="text" id="name" placeholder="Full Name">
+        <div id="nameError" class="error"></div>
+
+        <input type="text" id="email" placeholder="Email">
+        <div id="emailError" class="error"></div>
+
+        <input type="text" id="phone" placeholder="Phone Number">
+        <div id="phoneError" class="error"></div>
+
+        <input type="date" id="dob">
+        <div id="dobError" class="error"></div>
+
+        <select id="gender">
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+        </select>
+        <div id="genderError" class="error"></div>
+
+        <input type="password" id="password" placeholder="Password">
+        <div id="passwordError" class="error"></div>
+
+        <input type="password" id="confirm" placeholder="Confirm Password">
+        <div id="confirmError" class="error"></div>
+
+        <textarea id="address" placeholder="Address"></textarea>
+        <div id="addressError" class="error"></div>
+
+        <button type="submit">Submit</button>
+
+        <p id="success"></p>
+
+    </form>
+</div>
+
+<script>
+function register()
+{
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let dob = document.getElementById("dob").value;
+    let gender = document.getElementById("gender").value;
+    let password = document.getElementById("password").value;
+    let confirm = document.getElementById("confirm").value;
+    let address = document.getElementById("address").value;
+
+    let valid = true;
+
+    document.querySelectorAll(".error").forEach(function(e) {
+        e.innerHTML = "";
+    });
+
+    document.getElementById("success").innerHTML = "";
+
+    if (name == "") {
+        document.getElementById("nameError").innerHTML = "Name is required";
+        valid = false;
+    }
+
+    if (email == "") {
+        document.getElementById("emailError").innerHTML = "Email is required";
+        valid = false;
+    } else if (!email.includes("@") || !email.includes(".")) {
+        document.getElementById("emailError").innerHTML = "Enter valid email";
+        valid = false;
+    }
+
+    if (phone == "") {
+        document.getElementById("phoneError").innerHTML = "Phone number is required";
+        valid = false;
+    } else if (!/^[0-9]{10}$/.test(phone)) {
+        document.getElementById("phoneError").innerHTML = "Enter valid 10 digit phone number";
+        valid = false;
+    }
+
+    if (dob == "") {
+        document.getElementById("dobError").innerHTML = "Date of birth is required";
+        valid = false;
+    }
+
+    if (gender == "") {
+        document.getElementById("genderError").innerHTML = "Select gender";
+        valid = false;
+    }
+
+    if (password == "") {
+        document.getElementById("passwordError").innerHTML = "Password is required";
+        valid = false;
+    }
+
+    if (confirm == "") {
+        document.getElementById("confirmError").innerHTML = "Confirm password";
+        valid = false;
+    } else if (password != confirm) {
+        document.getElementById("confirmError").innerHTML = "Passwords do not match";
+        valid = false;
+    }
+
+    if (address == "") {
+        document.getElementById("addressError").innerHTML = "Address is required";
+        valid = false;
+    }
+
+    if (valid) {
+        document.getElementById("success").innerHTML = "Registration Successful!";
+    }
+
+    return false;
+}
+</script>
+
+</body>
+</html>
